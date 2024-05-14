@@ -1,0 +1,34 @@
+name: provider_student_management
+description: "A new Flutter project."
+
+publish_to: "none"
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.2.4 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.2
+  provider: ^6.1.2
+  hive:
+  hive_flutter: 
+  flutter_slidable:
+  anim_search_bar: ^2.0.3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  build_runner:
+  hive_generator:
+
+  flutter_lints: ^2.0.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/
