@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:provider_student_management/controllers/student_controller.dart';
 import 'package:provider_student_management/model/student.dart';
 import 'package:provider_student_management/screens/profile/w_action_buttons.dart';
 import 'package:provider_student_management/utils/constants/colors.dart';
@@ -6,13 +8,14 @@ import 'package:provider_student_management/utils/constants/colors.dart';
 class ProfileMainDetails extends StatelessWidget {
   const ProfileMainDetails({
     super.key,
-    required this.data,
+    required this.index,
   });
 
-  final Student data;
+  final int index;
 
   @override
   Widget build(BuildContext context) {
+     Student data = context.watch<DataProvider>().allStudents[index];
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
@@ -46,7 +49,7 @@ class ProfileMainDetails extends StatelessWidget {
                 ],
               ),
             ),
-            ActionButtons(data: data)
+            ActionButtons(index: index,)
           ],
         ),
       ),

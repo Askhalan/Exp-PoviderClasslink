@@ -34,6 +34,7 @@ class CustomAppbar extends StatelessWidget {
                   bottom: 12),
               curve: Curves.easeInOut,
               child: SearchBar(
+                controller: context.read<DataProvider>().searchController,
                   backgroundColor: dataProvider.paddingValue > 15
                       ? const MaterialStatePropertyAll(JColor.primary)
                       : const MaterialStatePropertyAll(JColor.lightGrey),

@@ -43,7 +43,8 @@ class DataProvider extends ChangeNotifier {
         lastName: lnameController.text,
         place: placeController.text,
         mail: mailidController.text,
-        image: ""));
+        image: "",
+        phone: phoneController.text));
 
     await boxStudent.put(
         id,
@@ -53,7 +54,8 @@ class DataProvider extends ChangeNotifier {
             place: placeController.text,
             mail: mailidController.text,
             image: "",
-            id: id));
+            id: id,
+            phone: phoneController.text));
 
     getAllStudent();
     clearControllers();
@@ -74,17 +76,38 @@ class DataProvider extends ChangeNotifier {
   }
 
   search() async {
-    log("entered fn");
-    final boxStudent = await Hive.openBox<Student>('studentBox');
-    final searchList = boxStudent.values.toList();
+    List<Student> searchList = [];
+    searchList.addAll(allStudents.toList());
+    allStudents.clear();
     for (var student in searchList) {
       if (student.firstName
           .toLowerCase()
           .contains(searchController.text.toLowerCase())) {
-        searchStudentsList.add(student);
+        allStudents.add(student);
+      }
+      if (searchController.text.isEmpty) {
+        getAllStudent();
       }
     }
-
     notifyListeners();
   }
+
+//------------------------- UPDATE -------------------------
+  void updateStudent(int id) async {
+    final boxStudent = await Hive.openBox<Student>('studentBox');
+    await boxStudent.put(
+        id,
+        Student(
+            firstName: fnameController.text,
+            lastName: lnameController.text,
+            place: placeController.text,
+            mail: mailidController.text,
+            image: "",
+            id: id,
+            phone: phoneController.text));
+
+    getAllStudent();
+    clearControllers();
+  }
+  
 }

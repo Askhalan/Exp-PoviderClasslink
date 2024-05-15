@@ -1,7 +1,10 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, must_be_immutable
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:provider/provider.dart';
+import 'package:provider_student_management/controllers/student_controller.dart';
 import 'package:provider_student_management/model/student.dart';
+import 'package:provider_student_management/screens/edit/edit.dart';
 import 'package:provider_student_management/screens/home/dialogue_delete.dart';
 import 'package:provider_student_management/screens/profile/scn_profile.dart';
 import 'package:provider_student_management/utils/constants/colors.dart';
@@ -10,11 +13,12 @@ import 'package:provider_student_management/utils/helpers/helper_functions.dart'
 
 
 class TileList extends StatelessWidget {
-  const TileList({Key? key, required this.data}) : super(key: key);
-  final Student data;
+   TileList({Key? key,required this.index}) : super(key: key);
+  int index;
   
   @override
   Widget build(BuildContext context) {
+    Student data = context.read<DataProvider>().allStudents[index];
     final isDark = JHelperFunctions.isDarkMode(context);
     return Container(
       margin: EdgeInsets.only(bottom: JmSize.spaceBtwItems/2),
@@ -38,10 +42,10 @@ class TileList extends StatelessWidget {
               icon: Icons.edit,
               backgroundColor: Color.fromARGB(188, 0, 190, 95),
               onPressed: (BuildContext context) {
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(builder: (context) => EditScn(data: data)),
-                // );
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => EditStudent(index: index,)),
+                );
               },
             )
           ],
@@ -71,7 +75,7 @@ class TileList extends StatelessWidget {
           onTap: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => Profile(data: data)),
+              MaterialPageRoute(builder: (context) => Profile(index: index,)),
             );
           },
         ),

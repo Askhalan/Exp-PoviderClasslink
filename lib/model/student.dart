@@ -9,6 +9,7 @@ class Student {
     this.id,
     required this.firstName,
     required this.lastName, 
+    required this.phone,
     required this.place,
     required this.mail,
     required this.image,
@@ -31,6 +32,9 @@ class Student {
 
   @HiveField(5)
   int? id;
+
+  @HiveField(6)
+  String phone;
 }
 
 

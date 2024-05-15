@@ -4,20 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:provider_student_management/controllers/student_controller.dart';
-import 'package:provider_student_management/model/student.dart';
 import 'package:provider_student_management/screens/add/scn_add.dart';
 import 'package:provider_student_management/screens/home/custom_appbar.dart';
 import 'package:provider_student_management/screens/home/w_list_tile.dart';
 import 'package:provider_student_management/utils/constants/sizes.dart';
 
 class ScnHome extends StatelessWidget {
-  ScnHome({super.key});
-  Student data = Student(
-      firstName: 'firstName',
-      lastName: 'lastName',
-      place: 'place',
-      mail: 'mail',
-      image: 'image');
+  const ScnHome({super.key});
   @override
   Widget build(BuildContext context) {
     context.read<DataProvider>().getAllStudent();
@@ -29,15 +22,14 @@ class ScnHome extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(JmSize.spaceBtwItems/2),
               child:  Consumer<DataProvider>(
-                builder: (context, allStudents , child) {
+                builder: (context, dataProvider , child) {
                   return ListView.builder(
-                    itemCount: context.read<DataProvider>().allStudents.length,
+                    itemCount: dataProvider.allStudents.length,
                     itemBuilder: (BuildContext context, int index) {
-                      Student data = context.read<DataProvider>().allStudents[index];
-                      if(context.read<DataProvider>().allStudents.isEmpty){
+                      if(dataProvider.allStudents.isEmpty){
                         return const Center(child: Text("Add Some Data"),);
                       }
-                      return TileList(data: data);
+                      return TileList(index: index,);
                     },
                    
                   );

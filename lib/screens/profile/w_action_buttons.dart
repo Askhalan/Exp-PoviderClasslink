@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:provider_student_management/controllers/student_controller.dart';
 import 'package:provider_student_management/model/student.dart';
+import 'package:provider_student_management/screens/edit/edit.dart';
 import 'package:provider_student_management/screens/home/w_list_tile.dart';
 import 'package:provider_student_management/utils/constants/colors.dart';
 import 'package:provider_student_management/utils/constants/sizes.dart';
@@ -7,10 +10,10 @@ import 'package:provider_student_management/utils/constants/sizes.dart';
 class ActionButtons extends StatelessWidget {
   const ActionButtons({
     super.key,
-    required this.data,
+    required this.index,
   });
 
-  final Student data;
+  final int index;
 
   @override
   Widget build(BuildContext context) {
@@ -21,12 +24,10 @@ class ActionButtons extends StatelessWidget {
         children: [
           InkWell(
             onTap: (){
-              // Navigator.push(
-                //     context,
-                //     MaterialPageRoute(
-                //         builder: (context) => EditScn(
-                //               data: data,
-                //             )));
+              Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => EditStudent (index: index,)));
             },
             child: Container(
               padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
@@ -34,7 +35,7 @@ class ActionButtons extends StatelessWidget {
               child: const Text("Edit"),),
           ),
           InkWell(
-            onTap: (){showDeleteDialog(context, data);},
+            onTap: (){showDeleteDialog(context, context.read<DataProvider>().allStudents[index]);},
             child: Container(
               padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
               decoration: BoxDecoration(color: JColor.error,borderRadius: BorderRadius.circular(JSize.borderRadMd)),
